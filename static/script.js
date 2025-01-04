@@ -213,9 +213,19 @@ function openModal(imageSrc) {
     fullImage.src = imageSrc;
     modal.style.display = 'block';
 
+    // Nascondi tutte le icone di formato quando si apre il modulo
+    const formatIcons = document.querySelectorAll('.format-icon');
+    formatIcons.forEach(icon => {
+        icon.style.display = 'none'; // Nascondi le icone di formato
+    });
+
     const closeButton = document.querySelector('.close');
     closeButton.onclick = function() {
         modal.style.display = 'none';
+        // Facoltativamente, mostra di nuovo le icone di formato quando si chiude il modulo
+        formatIcons.forEach(icon => {
+            icon.style.display = 'block'; // Mostra di nuovo le icone di formato
+        });
     };
 }
 
