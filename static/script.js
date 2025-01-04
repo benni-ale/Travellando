@@ -98,14 +98,70 @@ function deleteImage(filename) {
 }
 
 function showComments(image) {
-    // Logic to fetch and display comments for the image
     const commentsSection = document.getElementById('commentsSection');
-    commentsSection.innerHTML = `<button id="closeComments" style="position:absolute; top:10px; right:10px;">Chiudi</button><h3>Commenti per ${image}</h3><p>Qui verranno visualizzati i commenti.</p>`;
+    commentsSection.innerHTML = `
+        <button id="closeComments" style="position:absolute; top:10px; right:10px; background:none; border:none; cursor:pointer;">
+            <i class="fas fa-times" style="font-size:24px; color:#000;"></i>
+        </button>
+        <h3>Commenti per ${image}</h3>
+        <div id="commentsList"></div>
+        <form id="commentForm">
+            <input type="text" id="commentInput" placeholder="Aggiungi un commento" required>
+            <button type="submit">Invia</button>
+        </form>
+    `;
     commentsSection.style.display = 'block';
+
+    // Fetch existing comments
+    fetch(`/comments/${image}`)
+        .then(response => response.json())
+        .then(comments => {
+            const commentsList = document.getElementById('commentsList');
+            commentsList.innerHTML = comments.map((comment, index) => `
+                <p>
+                    ${comment}
+                    <button class="delete-comment" data-index="${index}">&times;</button>
+                </p>
+            `).join('');
+
+            // Attach delete event listeners
+            document.querySelectorAll('.delete-comment').forEach(button => {
+                button.addEventListener('click', function() {
+                    const commentIndex = this.getAttribute('data-index');
+                    fetch(`/comments/${image}/${commentIndex}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.message);
+                        showComments(image); // Refresh comments
+                    });
+                });
+            });
+        });
 
     // Re-attach the event listener for the close button
     document.getElementById('closeComments').addEventListener('click', function () {
         commentsSection.style.display = 'none';
+    });
+
+    // Handle comment submission
+    document.getElementById('commentForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const comment = document.getElementById('commentInput').value;
+        fetch(`/comments/${image}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ comment })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.message);
+            showComments(image); // Refresh comments
+            document.getElementById('commentInput').value = '';
+        });
     });
 }
 

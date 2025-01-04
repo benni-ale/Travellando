@@ -118,8 +118,8 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 10px;
-    cursor: move; /* Change cursor to indicate draggable */
+    margin: 5px;
+    cursor: move;
 }
 
 .img-container.dragging {
@@ -128,9 +128,9 @@ button:hover {
 
 .button-container {
     display: flex;
-    justify-content: center; /* Center buttons horizontally */
-    gap: 10px; /* Space between buttons */
-    margin-top: 10px; /* Space above the button container */
+    justify-content: center;
+    gap: 2px;
+    margin-top: 1px;
 }
 
 /* Modal styles */
@@ -170,4 +170,70 @@ button:hover {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
+}
+
+#commentsSection {
+    background-color: #1a1a2e; /* Same background as the main window */
+    color: #e0e0e0; /* Text color */
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+    overflow: auto;
+}
+
+#commentsList p {
+    position: relative; /* To position the delete button inside */
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #2e2e3e;
+    border-radius: 5px;
+    transition: color 0.3s;
+}
+
+#commentsList p:hover {
+    color: #ffd700; /* Yellow color on hover */
+}
+
+#commentForm {
+    margin-top: 20px;
+}
+
+#commentInput {
+    width: calc(100% - 100px);
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2e2e3e;
+    color: #e0e0e0;
+}
+
+#commentForm button {
+    padding: 10px 20px;
+    background-color: #00d4ff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#commentForm button:hover {
+    background-color: #ffd700;
+}
+
+.delete-comment {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #e0e0e0;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.delete-comment:hover {
+    color: #ffd700; /* Yellow color on hover */
 } 

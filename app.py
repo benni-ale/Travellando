@@ -7,6 +7,9 @@ app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024  # 1MB limit
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
+# Simulated database for comments
+comments_db = {}
+
 # Ensure upload folder exists
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
@@ -54,6 +57,24 @@ def delete_file(filename):
         os.remove(file_path)
         return jsonify({'message': f'File {filename} eliminato con successo!'}), 200
     return jsonify({'error': 'File non trovato!'}), 404
+
+@app.route('/comments/<filename>', methods=['GET', 'POST'])
+def comments(filename):
+    if request.method == 'POST':
+        comment = request.json.get('comment')
+        if filename not in comments_db:
+            comments_db[filename] = []
+        comments_db[filename].append(comment)
+        return jsonify({'message': 'Commento aggiunto con successo!'})
+    
+    return jsonify(comments_db.get(filename, []))
+
+@app.route('/comments/<filename>/<int:comment_index>', methods=['DELETE'])
+def delete_comment(filename, comment_index):
+    if filename in comments_db and 0 <= comment_index < len(comments_db[filename]):
+        comments_db[filename].pop(comment_index)
+        return jsonify({'message': 'Commento eliminato con successo!'})
+    return jsonify({'error': 'Commento non trovato!'}), 404
 
 if __name__ == '__main__':
     app.run(debug=True, port=3000) 
