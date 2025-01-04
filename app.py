@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, send_from_directory
+from flask import Flask, request, render_template, send_from_directory, jsonify
 import os
 from werkzeug.utils import secure_filename
 
@@ -40,9 +40,20 @@ def uploaded_file(filename):
 
 @app.route('/uploads')
 def get_uploads():
+    if not os.path.exists(app.config['UPLOAD_FOLDER']):
+        return jsonify([])
+    
     files = os.listdir(app.config['UPLOAD_FOLDER'])
     files = [f for f in files if allowed_file(f)]
-    return files
+    return jsonify(files)
+
+@app.route('/delete/<filename>', methods=['DELETE'])
+def delete_file(filename):
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        return jsonify({'message': f'File {filename} eliminato con successo!'}), 200
+    return jsonify({'error': 'File non trovato!'}), 404
 
 if __name__ == '__main__':
     app.run(debug=True, port=3000) 

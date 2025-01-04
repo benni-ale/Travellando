@@ -31,8 +31,29 @@ function loadGallery() {
                 const imgElement = document.createElement('img');
                 imgElement.src = `/uploads/${image}`;
                 gallery.appendChild(imgElement);
+
+                // Create delete button with icon
+                const deleteButton = document.createElement('button');
+                deleteButton.innerHTML = '<i class="fas fa-trash"></i>'; // Font Awesome trash icon
+                deleteButton.className = 'delete-button'; // Add a class for styling
+                deleteButton.onclick = function() {
+                    deleteImage(image);
+                };
+                gallery.appendChild(deleteButton);
             });
         });
+}
+
+function deleteImage(filename) {
+    fetch(`/delete/${filename}`, {
+        method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message || data.error);
+        loadGallery(); // Reload the gallery after deletion
+    })
+    .catch(error => console.error('Errore:', error));
 }
 
 loadGallery(); 

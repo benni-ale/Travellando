@@ -78,4 +78,18 @@ button:hover {
 
 #gallery img:hover {
     border-color: #ffd700; /* Giallo brillante */
+}
+
+.delete-button {
+    background-color: transparent; /* No background */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor */
+    color: #00d4ff; /* Default color */
+    font-size: 20px; /* Icon size */
+    margin-top: 10px; /* Space above the button */
+    transition: color 0.3s; /* Smooth color transition */
+}
+
+.delete-button:hover {
+    color: red; /* Change color to red on hover */
 } 
