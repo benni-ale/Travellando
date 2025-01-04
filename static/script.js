@@ -35,6 +35,21 @@ function loadGallery() {
             images.forEach(image => {
                 const imgContainer = document.createElement('div');
                 imgContainer.className = 'img-container';
+                imgContainer.draggable = true;
+
+                imgContainer.ondragstart = function(event) {
+                    event.dataTransfer.setData('text/plain', image);
+                };
+
+                imgContainer.ondragover = function(event) {
+                    event.preventDefault();
+                };
+
+                imgContainer.ondrop = function(event) {
+                    event.preventDefault();
+                    const draggedImage = event.dataTransfer.getData('text/plain');
+                    swapImages(image, draggedImage);
+                };
 
                 const imgElement = document.createElement('img');
                 imgElement.src = `/uploads/${image}`;
@@ -85,8 +100,13 @@ function deleteImage(filename) {
 function showComments(image) {
     // Logic to fetch and display comments for the image
     const commentsSection = document.getElementById('commentsSection');
-    commentsSection.innerHTML = `<h3>Commenti per ${image}</h3><p>Qui verranno visualizzati i commenti.</p>`;
+    commentsSection.innerHTML = `<button id="closeComments" style="position:absolute; top:10px; right:10px;">Chiudi</button><h3>Commenti per ${image}</h3><p>Qui verranno visualizzati i commenti.</p>`;
     commentsSection.style.display = 'block';
+
+    // Re-attach the event listener for the close button
+    document.getElementById('closeComments').addEventListener('click', function () {
+        commentsSection.style.display = 'none';
+    });
 }
 
 function openModal(imageSrc) {
@@ -100,5 +120,27 @@ function openModal(imageSrc) {
         modal.style.display = 'none';
     };
 }
+
+function swapImages(image1, image2) {
+    const gallery = document.getElementById('gallery');
+    const containers = Array.from(gallery.getElementsByClassName('img-container'));
+
+    const index1 = containers.findIndex(container => container.querySelector('img').src.includes(image1));
+    const index2 = containers.findIndex(container => container.querySelector('img').src.includes(image2));
+
+    if (index1 !== -1 && index2 !== -1 && index1 !== index2) {
+        const container1 = containers[index1];
+        const container2 = containers[index2];
+
+        // Swap the positions of the two containers
+        gallery.insertBefore(container2, container1);
+        gallery.insertBefore(container1, containers[index2 + 1] || null);
+    }
+}
+
+document.getElementById('closeComments').addEventListener('click', function () {
+    const commentsSection = document.getElementById('commentsSection');
+    commentsSection.style.display = 'none';
+});
 
 loadGallery(); 
