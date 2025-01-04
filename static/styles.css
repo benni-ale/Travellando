@@ -1,17 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Orbitron', sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #f4f4f4;
+    background-color: #1a1a2e;
+    color: #e0e0e0;
+    background-image: url('{{ url_for('static', filename='background.jpg') }}');
+    background-size: cover;
+    background-position: center;
 }
 
 h1 {
     text-align: center;
+    color: #00d4ff;
+    text-shadow: 2px 2px #000;
 }
 
 form {
     margin-bottom: 20px;
     text-align: center;
+}
+
+input[type="file"] {
+    display: none; /* Nasconde l'input file predefinito */
+}
+
+label {
+    font-family: 'Orbitron', sans-serif;
+    background-color: #00d4ff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    text-transform: uppercase;
+    box-shadow: 2px 2px #000;
+    transition: background-color 0.3s;
+    display: inline-block;
+}
+
+label:hover {
+    background-color: #ffd700; /* Giallo brillante */
+}
+
+button {
+    font-family: 'Orbitron', sans-serif;
+    background-color: #00d4ff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    text-transform: uppercase;
+    box-shadow: 2px 2px #000;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #ffd700; /* Giallo brillante */
 }
 
 #gallery {
@@ -24,4 +71,11 @@ form {
     margin: 10px;
     width: 200px;
     height: auto;
+    border: 5px solid #00d4ff;
+    box-shadow: 5px 5px #000;
+    transition: border-color 0.3s;
+}
+
+#gallery img:hover {
+    border-color: #ffd700; /* Giallo brillante */
 } 

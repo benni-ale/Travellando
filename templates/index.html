@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <title>Galleria di Immagini</title>
+    <title>Galleria di Immagini - Cyberpunk</title>
 </head>
 <body>
     <h1>Galleria di Immagini</h1>
     <form id="uploadForm" enctype="multipart/form-data">
         <input type="file" name="image" id="image" accept="image/*">
+        <label for="image">Scegli File</label>
         <button type="submit">Carica</button>
     </form>
+    <button id="showGallery">Mostra Galleria</button>
     <div id="gallery"></div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>

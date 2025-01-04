@@ -17,6 +17,10 @@ document.getElementById('uploadForm').addEventListener('submit', function (e) {
     .catch(error => console.error('Errore:', error));
 });
 
+document.getElementById('showGallery').addEventListener('click', function () {
+    loadGallery();
+});
+
 function loadGallery() {
     fetch('/uploads')
         .then(response => response.json())
