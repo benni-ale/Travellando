@@ -95,20 +95,26 @@ button:hover {
     color: red; /* Change color to red on hover */
 }
 
+.button-container {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space buttons evenly */
+    width: 100%; /* Take full width of the image */
+    margin: 0; /* Remove any margin */
+}
+
 .action-button {
     background-color: #00d4ff;
     color: #fff;
     border: none;
-    padding: 5px 10px;
+    padding: 10px; /* Add some padding for better touch targets */
     cursor: pointer;
     font-size: 16px;
     text-transform: uppercase;
     box-shadow: 2px 2px #000;
     transition: background-color 0.3s;
-    display: block;
-    margin: 0;
-    width: auto;
-    text-align: center;
+    flex: 1; /* Allow buttons to grow equally */
+    margin: 0; /* Remove margin to avoid gaps */
+    text-align: center; /* Center text in buttons */
 }
 
 .action-button:hover {
@@ -126,13 +132,6 @@ button:hover {
 
 .img-container.dragging {
     opacity: 0.5; /* Visual feedback for dragging */
-}
-
-.button-container {
-    display: flex;
-    justify-content: center;
-    gap: 2px;
-    margin: 0;
 }
 
 /* Modal styles */

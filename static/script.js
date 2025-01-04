@@ -66,7 +66,7 @@ function loadGallery() {
 
                 const buttonContainer = document.createElement('div');
                 buttonContainer.className = 'button-container';
-                buttonContainer.style.margin = '0'; // Set margin to 0 to remove space
+                buttonContainer.style.margin = '0'; // Ensure no margin is applied
 
                 // Create delete button with icon
                 const deleteButton = document.createElement('button');
@@ -151,7 +151,6 @@ function showComments(image) {
             <input type="text" id="commentInput" placeholder="Add a comment" required>
             <button type="submit">Submit</button>
         </form>
-        <button id="analyzeImage" style="margin-top: 10px;">Analyze Image</button>
     `;
     commentsSection.style.display = 'block';
 
@@ -205,25 +204,6 @@ function showComments(image) {
             showComments(image); // Refresh comments
             document.getElementById('commentInput').value = '';
         });
-    });
-
-    // Add event listener for the analyze button
-    document.getElementById('analyzeImage').addEventListener('click', function () {
-        fetch(`/analyze/${image}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    showNotification(data.error, 'error');
-                } else {
-                    // Display the analysis result
-                    const analysisResult = JSON.stringify(data, null, 2);
-                    alert(`Analysis Result: ${analysisResult}`);
-
-                    // Automatically refresh comments to include the analysis result
-                    showComments(image); // Refresh comments to show the new analysis comment
-                }
-            })
-            .catch(error => console.error('Error:', error));
     });
 }
 
