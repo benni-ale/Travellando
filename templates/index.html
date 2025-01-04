@@ -9,14 +9,16 @@
 </head>
 <body>
     <h1>Dollar Punk</h1>
-    <form id="uploadForm" enctype="multipart/form-data">
-        <input type="file" name="image" id="image" accept="image/*">
-        <label for="image">Choose File</label>
-        <span id="fileNameDisplay"></span>
-        <button type="submit">Upload</button>
-        <button type="button" id="showFilters" style="margin-left: 10px;">Show AI Filters</button>
-    </form>
     <button id="showGallery">Show Gallery</button>
+    <div id="buttonContainer" style="display:none; margin-top: 20px;">
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" name="image" id="image" accept="image/*">
+            <label for="image">Choose File</label>
+            <span id="fileNameDisplay"></span>
+            <button type="submit">Upload</button>
+            <button type="button" id="showFilters" style="margin-left: 10px;">Show AI Filters</button>
+        </form>
+    </div>
     <div id="gallery"></div>
 
     <!-- Modal for full view -->
@@ -33,6 +35,10 @@
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <script>
+        document.getElementById('showGallery').addEventListener('click', function() {
+            const buttonContainer = document.getElementById('buttonContainer');
+            buttonContainer.style.display = buttonContainer.style.display === 'none' ? 'block' : 'none';
+        });
         document.getElementById('showFilters').addEventListener('click', function() {
             // Logic to show AI filters goes here
             alert('Show AI Filters functionality to be implemented.');
