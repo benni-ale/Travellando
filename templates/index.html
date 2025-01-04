@@ -14,6 +14,7 @@
         <label for="image">Choose File</label>
         <span id="fileNameDisplay"></span>
         <button type="submit">Upload</button>
+        <button type="button" id="showFilters" style="margin-left: 10px;">Show AI Filters</button>
     </form>
     <button id="showGallery">Show Gallery</button>
     <div id="gallery"></div>
@@ -31,5 +32,11 @@
         <!-- Comment content will be inserted here -->
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        document.getElementById('showFilters').addEventListener('click', function() {
+            // Logic to show AI filters goes here
+            alert('Show AI Filters functionality to be implemented.');
+        });
+    </script>
 </body>
 </html> 

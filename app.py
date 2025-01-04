@@ -1,18 +1,37 @@
 from flask import Flask, request, render_template, send_from_directory, jsonify
 import os
+import sqlite3  # Use built-in SQLite library
 from werkzeug.utils import secure_filename
 from ai_analysis import analyze_image
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024  # 1MB limit
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+DATABASE = 'analysis_results.db'  # Database file
+
+# Function to initialize the database
+def init_db():
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS analysis_results (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                filename TEXT NOT NULL,
+                predicted_class TEXT NOT NULL
+            )
+        ''')
+        conn.commit()
+
+# Initialize the database
+init_db()
 
 # Simulated database for comments
 comments_db = {}
 
 # Ensure upload folder exists
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -83,11 +102,12 @@ def analyze_image_route(filename):
     if os.path.exists(file_path):
         result = analyze_image(file_path)
         
-        # Store the analysis result as a comment
-        analysis_comment = f"Analysis Result: {result['predicted_class']}"
-        if filename not in comments_db:
-            comments_db[filename] = []
-        comments_db[filename].append(analysis_comment)
+        # Store the analysis result in the database
+        with sqlite3.connect(DATABASE) as conn:
+            cursor = conn.cursor()
+            cursor.execute('INSERT INTO analysis_results (filename, predicted_class) VALUES (?, ?)', 
+                           (filename, result['predicted_class']))
+            conn.commit()
         
         return jsonify(result)
     return jsonify({'error': 'File non trovato!'}), 404
