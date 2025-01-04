@@ -1,4 +1,8 @@
 # Travellando
-Git Token 
-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
-git remote set-url origin https://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@github.com/benni-ale/Travellando.git
+Git Token necessary to push to the repository
+git remote set-url origin https://TOKEN@benni-ale/Travellando.git
+cd /path/to/your/repository
+git add path/to/updated/folder
+git commit -m "Describe the updates made to the folder"
+git push origin branch-name
+
