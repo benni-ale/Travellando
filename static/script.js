@@ -66,6 +66,7 @@ function loadGallery() {
 
                 const buttonContainer = document.createElement('div');
                 buttonContainer.className = 'button-container';
+                buttonContainer.style.margin = '0'; // Set margin to 0 to remove space
 
                 // Create delete button with icon
                 const deleteButton = document.createElement('button');
