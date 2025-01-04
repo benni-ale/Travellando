@@ -160,25 +160,34 @@ button:hover {
     position: absolute;
     top: 15px;
     right: 35px;
-    color: #f1f1f1;
+    color: #e0e0e0;
     font-size: 40px;
     font-weight: bold;
     transition: 0.3s;
+    text-shadow: none;
 }
 
 .close:hover,
 .close:focus {
-    color: #bbb;
+    color: #e0e0e0;
     text-decoration: none;
     cursor: pointer;
 }
 
 #commentsSection {
-    background-color: #1a1a2e; /* Same background as the main window */
-    color: #e0e0e0; /* Text color */
-    padding: 20px;
-    box-shadow: -2px 0 5px rgba(0,0,0,0.5);
-    overflow: auto;
+    display: none; /* Initially hidden */
+    position: fixed; /* Fixed position */
+    left: 50%; /* Center horizontally */
+    top: 50%; /* Center vertically */
+    transform: translate(-50%, -50%); /* Adjust position to center */
+    width: 400px; /* Set a fixed width */
+    max-height: 80%; /* Limit height */
+    background-color: #fff; /* Background color */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+    overflow-y: auto; /* Scroll if content overflows */
+    z-index: 1000; /* Ensure it appears above other content */
+    padding: 20px; /* Padding inside the modal */
+    border-radius: 10px; /* Rounded corners */
 }
 
 #commentsList p {
