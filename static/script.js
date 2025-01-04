@@ -28,18 +28,32 @@ function loadGallery() {
             const gallery = document.getElementById('gallery');
             gallery.innerHTML = '';
             images.forEach(image => {
+                const imgContainer = document.createElement('div');
+                imgContainer.className = 'img-container';
+
                 const imgElement = document.createElement('img');
                 imgElement.src = `/uploads/${image}`;
-                gallery.appendChild(imgElement);
+                imgContainer.appendChild(imgElement);
 
                 // Create delete button with icon
                 const deleteButton = document.createElement('button');
                 deleteButton.innerHTML = '<i class="fas fa-trash"></i>'; // Font Awesome trash icon
-                deleteButton.className = 'delete-button'; // Add a class for styling
+                deleteButton.className = 'action-button'; // Use the same class for styling
                 deleteButton.onclick = function() {
                     deleteImage(image);
                 };
-                gallery.appendChild(deleteButton);
+                imgContainer.appendChild(deleteButton);
+
+                // Create comments button with icon
+                const commentsButton = document.createElement('button');
+                commentsButton.innerHTML = '<i class="fas fa-comments"></i>'; // Font Awesome comments icon
+                commentsButton.className = 'action-button'; // Use a common class for styling
+                commentsButton.onclick = function() {
+                    showComments(image);
+                };
+                imgContainer.appendChild(commentsButton);
+
+                gallery.appendChild(imgContainer);
             });
         });
 }
@@ -54,6 +68,13 @@ function deleteImage(filename) {
         loadGallery(); // Reload the gallery after deletion
     })
     .catch(error => console.error('Errore:', error));
+}
+
+function showComments(image) {
+    // Logic to fetch and display comments for the image
+    const commentsSection = document.getElementById('commentsSection');
+    commentsSection.innerHTML = `<h3>Commenti per ${image}</h3><p>Qui verranno visualizzati i commenti.</p>`;
+    commentsSection.style.display = 'block';
 }
 
 loadGallery(); 

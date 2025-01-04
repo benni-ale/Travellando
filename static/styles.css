@@ -92,4 +92,31 @@ button:hover {
 
 .delete-button:hover {
     color: red; /* Change color to red on hover */
+}
+
+.action-button {
+    background-color: #00d4ff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    text-transform: uppercase;
+    box-shadow: 2px 2px #000;
+    transition: background-color 0.3s;
+    display: block; /* Display as block to appear below the image */
+    margin: 10px auto; /* Center the button */
+    width: 100px; /* Ensure consistent width */
+    text-align: center; /* Center the icon */
+}
+
+.action-button:hover {
+    background-color: #ffd700; /* Giallo brillante */
+}
+
+.img-container {
+    display: flex;
+    flex-direction: column; /* Arrange items vertically */
+    align-items: center; /* Center items horizontally */
+    margin: 10px;
 } 
