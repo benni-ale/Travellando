@@ -35,6 +35,9 @@ function loadGallery() {
                 imgElement.src = `/uploads/${image}`;
                 imgContainer.appendChild(imgElement);
 
+                const buttonContainer = document.createElement('div');
+                buttonContainer.className = 'button-container';
+
                 // Create delete button with icon
                 const deleteButton = document.createElement('button');
                 deleteButton.innerHTML = '<i class="fas fa-trash"></i>'; // Font Awesome trash icon
@@ -42,7 +45,7 @@ function loadGallery() {
                 deleteButton.onclick = function() {
                     deleteImage(image);
                 };
-                imgContainer.appendChild(deleteButton);
+                buttonContainer.appendChild(deleteButton);
 
                 // Create comments button with icon
                 const commentsButton = document.createElement('button');
@@ -51,8 +54,9 @@ function loadGallery() {
                 commentsButton.onclick = function() {
                     showComments(image);
                 };
-                imgContainer.appendChild(commentsButton);
+                buttonContainer.appendChild(commentsButton);
 
+                imgContainer.appendChild(buttonContainer);
                 gallery.appendChild(imgContainer);
             });
         });

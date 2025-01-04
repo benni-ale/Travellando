@@ -119,4 +119,11 @@ button:hover {
     flex-direction: column; /* Arrange items vertically */
     align-items: center; /* Center items horizontally */
     margin: 10px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* Center buttons horizontally */
+    gap: 10px; /* Space between buttons */
+    margin-top: 10px; /* Space above the button container */
 } 
