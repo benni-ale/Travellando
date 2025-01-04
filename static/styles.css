@@ -4,11 +4,9 @@ body {
     font-family: 'Orbitron', sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #1a1a2e;
+    background-color: #121212;
     color: #e0e0e0;
-    background-image: url('{{ url_for('static', filename='background.jpg') }}');
-    background-size: cover;
-    background-position: center;
+    background-image: none;
 }
 
 h1 {
@@ -28,7 +26,7 @@ input[type="file"] {
 
 label {
     font-family: 'Orbitron', sans-serif;
-    background-color: #00d4ff;
+    background-color: #1e1e1e;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -41,12 +39,12 @@ label {
 }
 
 label:hover {
-    background-color: #ffd700; /* Giallo brillante */
+    background-color: #ffd700;
 }
 
 button {
     font-family: 'Orbitron', sans-serif;
-    background-color: #00d4ff;
+    background-color: #1e1e1e;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -58,7 +56,7 @@ button {
 }
 
 button:hover {
-    background-color: #ffd700; /* Giallo brillante */
+    background-color: #ffd700;
 }
 
 #gallery {
@@ -78,47 +76,47 @@ button:hover {
 }
 
 #gallery img:hover {
-    border-color: #ffd700; /* Giallo brillante */
+    border-color: #ffd700;
 }
 
 .delete-button {
-    background-color: transparent; /* No background */
-    border: none; /* No border */
-    cursor: pointer; /* Pointer cursor */
-    color: #00d4ff; /* Default color */
-    font-size: 20px; /* Icon size */
-    margin-top: 10px; /* Space above the button */
-    transition: color 0.3s; /* Smooth color transition */
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #00d4ff;
+    font-size: 20px;
+    margin-top: 10px;
+    transition: color 0.3s;
 }
 
 .delete-button:hover {
-    color: red; /* Change color to red on hover */
+    color: red;
 }
 
 .button-container {
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Space buttons evenly */
-    width: 100%; /* Take full width of the image */
-    margin: 0; /* Remove any margin */
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0;
 }
 
 .action-button {
     background-color: #00d4ff;
     color: #fff;
     border: none;
-    padding: 10px; /* Add some padding for better touch targets */
+    padding: 10px;
     cursor: pointer;
     font-size: 16px;
     text-transform: uppercase;
     box-shadow: 2px 2px #000;
     transition: background-color 0.3s;
-    flex: 1; /* Allow buttons to grow equally */
-    margin: 0; /* Remove margin to avoid gaps */
-    text-align: center; /* Center text in buttons */
+    flex: 1;
+    margin: 0;
+    text-align: center;
 }
 
 .action-button:hover {
-    background-color: #ffd700; /* Giallo brillante */
+    background-color: #ffd700;
 }
 
 .img-container {
@@ -131,7 +129,7 @@ button:hover {
 }
 
 .img-container.dragging {
-    opacity: 0.5; /* Visual feedback for dragging */
+    opacity: 0.5;
 }
 
 /* Modal styles */
@@ -177,23 +175,23 @@ button:hover {
 }
 
 #commentsSection {
-    display: none; /* Initially hidden */
-    position: fixed; /* Fixed position */
-    left: 50%; /* Center horizontally */
-    top: 50%; /* Center vertically */
-    transform: translate(-50%, -50%); /* Adjust position to center */
-    width: 400px; /* Set a fixed width */
-    max-height: 80%; /* Limit height */
-    background-color: #fff; /* Background color */
-    box-shadow: none; /* Remove shadow for a flat look */
-    overflow-y: auto; /* Scroll if content overflows */
-    z-index: 1000; /* Ensure it appears above other content */
-    padding: 20px; /* Padding inside the modal */
-    border-radius: 10px; /* Rounded corners */
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    max-height: 80%;
+    background-color: #2e2e3e;
+    box-shadow: none;
+    overflow-y: auto;
+    z-index: 1000;
+    padding: 20px;
+    border-radius: 10px;
 }
 
 #commentsList p {
-    position: relative; /* To position the delete button inside */
+    position: relative;
     margin: 10px 0;
     padding: 10px;
     background-color: #2e2e3e;
@@ -202,7 +200,7 @@ button:hover {
 }
 
 #commentsList p:hover {
-    color: #ffd700; /* Yellow color on hover */
+    color: #ffd700;
 }
 
 #commentForm {
@@ -247,7 +245,7 @@ button:hover {
 }
 
 .delete-comment:hover {
-    color: #ffd700; /* Yellow color on hover */
+    color: #ffd700;
 }
 
 .notification {
@@ -277,13 +275,13 @@ button:hover {
 
 .format-icon {
     position: absolute;
-    top: 5px; /* Adjust as needed */
-    right: 5px; /* Adjust as needed */
-    z-index: 10; /* Ensure it appears above the image */
-    color: #fff; /* Change color as needed */
-    font-size: 20px; /* Adjust size as needed */
-    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
-    border-radius: 5px; /* Rounded corners */
-    padding: 5px; /* Padding around the icon */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Optional shadow for depth */
+    top: 5px;
+    right: 5px;
+    z-index: 10;
+    color: #fff;
+    font-size: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 } 
