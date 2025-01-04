@@ -236,4 +236,29 @@ button:hover {
 
 .delete-comment:hover {
     color: #ffd700; /* Yellow color on hover */
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #00d4ff;
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transition: opacity 0.5s ease-out;
+}
+
+.notification.success {
+    background-color: #28a745;
+}
+
+.notification.error {
+    background-color: #dc3545;
+}
+
+.notification.fade-out {
+    opacity: 0;
 } 

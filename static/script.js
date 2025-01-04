@@ -16,7 +16,7 @@ document.getElementById('uploadForm').addEventListener('submit', function (e) {
     })
     .then(response => response.text())
     .then(data => {
-        alert(data);
+        showNotification(data, 'success');
         loadGallery();
     })
     .catch(error => console.error('Errore:', error));
@@ -85,13 +85,28 @@ function loadGallery() {
         });
 }
 
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.classList.add('fade-out');
+        notification.addEventListener('transitionend', () => {
+            notification.remove();
+        });
+    }, 3000);
+}
+
 function deleteImage(filename) {
     fetch(`/delete/${filename}`, {
         method: 'DELETE'
     })
     .then(response => response.json())
     .then(data => {
-        alert(data.message || data.error);
+        showNotification(data.message || data.error, data.error ? 'error' : 'success');
         loadGallery(); // Reload the gallery after deletion
     })
     .catch(error => console.error('Errore:', error));
