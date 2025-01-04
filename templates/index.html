@@ -12,10 +12,18 @@
     <form id="uploadForm" enctype="multipart/form-data">
         <input type="file" name="image" id="image" accept="image/*">
         <label for="image">Scegli File</label>
+        <span id="fileNameDisplay"></span>
         <button type="submit">Carica</button>
     </form>
     <button id="showGallery">Mostra Galleria</button>
     <div id="gallery"></div>
+
+    <!-- Modal for full view -->
+    <div id="imageModal" class="modal" style="display:none;">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="fullImage">
+    </div>
+
     <div id="commentsSection" style="display:none; position:fixed; right:0; top:0; width:300px; height:100%; background-color:#fff; box-shadow:-2px 0 5px rgba(0,0,0,0.5); overflow:auto;"></div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>

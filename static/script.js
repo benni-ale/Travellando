@@ -1,3 +1,8 @@
+document.getElementById('image').addEventListener('change', function () {
+    const fileName = this.files[0]?.name || 'Nessun file selezionato';
+    document.getElementById('fileNameDisplay').textContent = fileName;
+});
+
 document.getElementById('uploadForm').addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -33,6 +38,9 @@ function loadGallery() {
 
                 const imgElement = document.createElement('img');
                 imgElement.src = `/uploads/${image}`;
+                imgElement.onclick = function() {
+                    openModal(`/uploads/${image}`);
+                };
                 imgContainer.appendChild(imgElement);
 
                 const buttonContainer = document.createElement('div');
@@ -79,6 +87,18 @@ function showComments(image) {
     const commentsSection = document.getElementById('commentsSection');
     commentsSection.innerHTML = `<h3>Commenti per ${image}</h3><p>Qui verranno visualizzati i commenti.</p>`;
     commentsSection.style.display = 'block';
+}
+
+function openModal(imageSrc) {
+    const modal = document.getElementById('imageModal');
+    const fullImage = document.getElementById('fullImage');
+    fullImage.src = imageSrc;
+    modal.style.display = 'block';
+
+    const closeButton = document.querySelector('.close');
+    closeButton.onclick = function() {
+        modal.style.display = 'none';
+    };
 }
 
 loadGallery(); 
