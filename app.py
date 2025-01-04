@@ -97,20 +97,20 @@ def delete_comment(filename, comment_index):
     return jsonify({'error': 'Commento non trovato!'}), 404
 
 @app.route('/analyze/<filename>', methods=['GET'])
-def analyze_image_route(filename):
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    if os.path.exists(file_path):
-        result = analyze_image(file_path)
-        
-        # Store the analysis result in the database
-        with sqlite3.connect(DATABASE) as conn:
-            cursor = conn.cursor()
-            cursor.execute('INSERT INTO analysis_results (filename, predicted_class) VALUES (?, ?)', 
-                           (filename, result['predicted_class']))
-            conn.commit()
-        
-        return jsonify(result)
-    return jsonify({'error': 'File non trovato!'}), 404
+def analyze(filename):
+    image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    analysis_result = analyze_image(image_path)
+
+    # Store the result in the database
+    with sqlite3.connect(DATABASE) as conn:
+        cursor = conn.cursor()
+        cursor.execute('''
+            INSERT INTO analysis_results (filename, predicted_class)
+            VALUES (?, ?)
+        ''', (filename, analysis_result['predicted_class']))
+        conn.commit()
+
+    return jsonify(analysis_result)
 
 if __name__ == '__main__':
     app.run(debug=True, port=3000) 

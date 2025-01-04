@@ -86,6 +86,29 @@ function loadGallery() {
                 };
                 buttonContainer.appendChild(commentsButton);
 
+                // Create AI analysis button with icon
+                const aiButton = document.createElement('button');
+                aiButton.innerHTML = '<i class="fas fa-robot"></i>'; // Font Awesome robot icon
+                aiButton.className = 'action-button'; // Use the same class for styling
+                aiButton.onclick = function() {
+                    fetch(`/analyze/${image}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.error) {
+                                showNotification(data.error, 'error');
+                            } else {
+                                // Display the analysis result
+                                const analysisResult = JSON.stringify(data, null, 2);
+                                alert(`Analysis Result: ${analysisResult}`);
+
+                                // Automatically refresh comments to include the analysis result
+                                showComments(image); // Refresh comments to show the new analysis comment
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                };
+                buttonContainer.appendChild(aiButton);
+
                 imgContainer.appendChild(buttonContainer);
                 gallery.appendChild(imgContainer);
             });
