@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, send_from_directory, jsonify
 import os
 from werkzeug.utils import secure_filename
+from ai_analysis import analyze_image
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
@@ -75,6 +76,21 @@ def delete_comment(filename, comment_index):
         comments_db[filename].pop(comment_index)
         return jsonify({'message': 'Commento eliminato con successo!'})
     return jsonify({'error': 'Commento non trovato!'}), 404
+
+@app.route('/analyze/<filename>', methods=['GET'])
+def analyze_image_route(filename):
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    if os.path.exists(file_path):
+        result = analyze_image(file_path)
+        
+        # Store the analysis result as a comment
+        analysis_comment = f"Analysis Result: {result['predicted_class']}"
+        if filename not in comments_db:
+            comments_db[filename] = []
+        comments_db[filename].append(analysis_comment)
+        
+        return jsonify(result)
+    return jsonify({'error': 'File non trovato!'}), 404
 
 if __name__ == '__main__':
     app.run(debug=True, port=3000) 

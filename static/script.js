@@ -37,6 +37,12 @@ function loadGallery() {
                 imgContainer.className = 'img-container';
                 imgContainer.draggable = true;
 
+                // Create a div for the format icon
+                const formatIcon = document.createElement('div');
+                formatIcon.className = 'format-icon'; // Add a class for styling
+                formatIcon.innerHTML = getFileFormatIcon(image); // Get the format icon
+                imgContainer.appendChild(formatIcon); // Append the icon to the container
+
                 imgContainer.ondragstart = function(event) {
                     event.dataTransfer.setData('text/plain', image);
                 };
@@ -118,12 +124,13 @@ function showComments(image) {
         <button id="closeComments" style="position:absolute; top:10px; right:10px; background:none; border:none; cursor:pointer;">
             <i class="fas fa-times" style="font-size:24px; color:#000;"></i>
         </button>
-        <h3>Commenti per ${image}</h3>
+        <h3>Comments for ${image}</h3>
         <div id="commentsList"></div>
         <form id="commentForm">
-            <input type="text" id="commentInput" placeholder="Aggiungi un commento" required>
-            <button type="submit">Invia</button>
+            <input type="text" id="commentInput" placeholder="Add a comment" required>
+            <button type="submit">Submit</button>
         </form>
+        <button id="analyzeImage" style="margin-top: 10px;">Analyze Image</button>
     `;
     commentsSection.style.display = 'block';
 
@@ -178,6 +185,22 @@ function showComments(image) {
             document.getElementById('commentInput').value = '';
         });
     });
+
+    // Add event listener for the analyze button
+    document.getElementById('analyzeImage').addEventListener('click', function () {
+        fetch(`/analyze/${image}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    showNotification(data.error, 'error');
+                } else {
+                    // Display the analysis result
+                    const analysisResult = JSON.stringify(data, null, 2);
+                    alert(`Analysis Result: ${analysisResult}`);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    });
 }
 
 function openModal(imageSrc) {
@@ -213,5 +236,38 @@ document.getElementById('closeComments').addEventListener('click', function () {
     const commentsSection = document.getElementById('commentsSection');
     commentsSection.style.display = 'none';
 });
+
+document.getElementById('analyzeImage').addEventListener('click', function () {
+    fetch(`/analyze/${image}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                showNotification(data.error, 'error');
+            } else {
+                // Display the analysis result
+                const analysisResult = JSON.stringify(data, null, 2);
+                alert(`Analysis Result: ${analysisResult}`);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+});
+
+function getFileFormatIcon(filename) {
+    const extension = filename.split('.').pop().toLowerCase();
+    switch (extension) {
+        case 'png':
+            return '<i class="fas fa-file-image" title="PNG"></i>'; // Font Awesome image icon
+        case 'jpg':
+        case 'jpeg':
+            return '<i class="fas fa-file-image" title="JPEG"></i>'; // Font Awesome image icon
+        case 'gif':
+            return '<i class="fas fa-file-image" title="GIF"></i>'; // Font Awesome image icon
+        case 'pdf':
+            return '<i class="fas fa-file-pdf" title="PDF"></i>'; // Font Awesome PDF icon
+        // Add more cases as needed
+        default:
+            return '<i class="fas fa-file" title="File"></i>'; // Default file icon
+    }
+}
 
 loadGallery(); 

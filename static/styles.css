@@ -120,6 +120,7 @@ button:hover {
     align-items: center;
     margin: 5px;
     cursor: move;
+    position: relative;
 }
 
 .img-container.dragging {
@@ -261,4 +262,17 @@ button:hover {
 
 .notification.fade-out {
     opacity: 0;
+}
+
+.format-icon {
+    position: absolute;
+    top: 5px; /* Adjust as needed */
+    right: 5px; /* Adjust as needed */
+    z-index: 10; /* Ensure it appears above the image */
+    color: #fff; /* Change color as needed */
+    font-size: 20px; /* Adjust size as needed */
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px; /* Padding around the icon */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Optional shadow for depth */
 } 
