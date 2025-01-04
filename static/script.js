@@ -100,9 +100,6 @@ function loadGallery() {
                                 // Display the analysis result
                                 const analysisResult = JSON.stringify(data, null, 2);
                                 alert(`Analysis Result: ${analysisResult}`);
-
-                                // Automatically refresh comments to include the analysis result
-                                showComments(image); // Refresh comments to show the new analysis comment
                             }
                         })
                         .catch(error => console.error('Error:', error));
